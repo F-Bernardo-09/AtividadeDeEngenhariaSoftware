@@ -38,6 +38,24 @@
         </button>
       </div>
 
+      <section id="acoesProfessor" class="acoes-professor" style="display: none">
+        <div class="acoes-professor__titulo">
+          <h2>Atividades do professor</h2>
+          <p>Crie, acompanhe e remova atividades compartilhadas com o aluno.</p>
+        </div>
+
+        <form id="formAtividade" class="form-atividade" onsubmit="criarAtividade(event)">
+          <input
+            type="text"
+            id="descricaoAtividade"
+            placeholder="Descrição da atividade"
+            required
+          />
+          <input type="date" id="dataAtividade" required />
+          <button type="submit" class="btn-salvar-atividade">Adicionar atividade</button>
+        </form>
+      </section>
+
       <main>
         <div class="container">
           <div class="coluna" id="todo">
@@ -52,135 +70,6 @@
         </div>
       </main>
     </div>
-
-    <script>
-      const initialBoardState = {
-        card1: "todo",
-        card2: "todo",
-        card3: "inProgress",
-        card4: "done",
-      };
-
-      function escolherPerfil(perfil) {
-        localStorage.setItem("perfil", perfil);
-        mostrarKanban();
-      }
-
-      function trocarPerfil() {
-        localStorage.removeItem("perfil");
-        voltarTelaInicial();
-      }
-
-      function mostrarKanban() {
-        document.getElementById("telaInicial").style.display = "none";
-        document.getElementById("quadroKanban").style.display = "block";
-        const perfil = localStorage.getItem("perfil") || "aluno";
-        atualizarHeader(perfil);
-        renderizarQuadro(perfil);
-      }
-
-      function voltarTelaInicial() {
-        document.getElementById("telaInicial").style.display = "flex";
-        document.getElementById("quadroKanban").style.display = "none";
-      }
-
-      function obterEstadoQuadro() {
-        const estadoSalvo = localStorage.getItem("quadroKanbanEstado");
-        return estadoSalvo ? JSON.parse(estadoSalvo) : initialBoardState;
-      }
-
-      function salvarEstadoQuadro(estado) {
-        localStorage.setItem("quadroKanbanEstado", JSON.stringify(estado));
-      }
-
-      function atualizarHeader(perfil) {
-        const header = document.querySelector(".header-kanban h1");
-        if (perfil === "aluno") {
-          header.textContent = "Aluno: mova as atividades entre os quadros.";
-        } else {
-          header.textContent = "Professor: visualizando as atividades movidas pelo aluno.";
-        }
-      }
-
-      function criarCard(id, texto, perfil) {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.id = id;
-        card.textContent = texto;
-        card.draggable = perfil === "aluno";
-        if (perfil === "aluno") {
-          card.addEventListener("dragstart", aoIniciarArraste);
-        }
-        return card;
-      }
-
-      function renderizarQuadro(perfil) {
-        const colunas = {
-          todo: document.getElementById("todo"),
-          inProgress: document.getElementById("inProgress"),
-          done: document.getElementById("done"),
-        };
-
-        Object.values(colunas).forEach((coluna) => {
-          coluna.querySelectorAll(".card").forEach((card) => card.remove());
-          coluna.classList.remove("drag-over");
-          coluna.removeEventListener("dragover", permitirArrastar);
-          coluna.removeEventListener("drop", soltarCard);
-          coluna.removeEventListener("dragleave", removerDragOver);
-          if (perfil === "aluno") {
-            coluna.addEventListener("dragover", permitirArrastar);
-            coluna.addEventListener("drop", soltarCard);
-            coluna.addEventListener("dragleave", removerDragOver);
-          }
-        });
-
-        const estado = obterEstadoQuadro();
-        const cartas = [
-          { id: "card1", texto: "Tarefa 1" },
-          { id: "card2", texto: "Tarefa 2" },
-          { id: "card3", texto: "Tarefa 3" },
-          { id: "card4", texto: "Tarefa 4" },
-        ];
-
-        cartas.forEach(({ id, texto }) => {
-          const colunaAlvo = estado[id] || initialBoardState[id];
-          const card = criarCard(id, texto, perfil);
-          colunas[colunaAlvo].appendChild(card);
-        });
-      }
-
-      function aoIniciarArraste(event) {
-        event.dataTransfer.setData("text/plain", event.target.id);
-      }
-
-      function permitirArrastar(event) {
-        event.preventDefault();
-        event.currentTarget.classList.add("drag-over");
-      }
-
-      function removerDragOver(event) {
-        event.currentTarget.classList.remove("drag-over");
-      }
-
-      function soltarCard(event) {
-        event.preventDefault();
-        const cardId = event.dataTransfer.getData("text/plain");
-        const colunaDestino = event.currentTarget.id;
-        if (!cardId || !colunaDestino) {
-          return;
-        }
-        const estado = obterEstadoQuadro();
-        estado[cardId] = colunaDestino;
-        salvarEstadoQuadro(estado);
-        renderizarQuadro(localStorage.getItem("perfil"));
-      }
-
-      window.addEventListener("DOMContentLoaded", function () {
-        const perfilSalvo = localStorage.getItem("perfil");
-        if (perfilSalvo) {
-          mostrarKanban();
-        }
-      });
-    </script>
+    <script src="src/js/kanban.js"></script>
   </body>
 </html>

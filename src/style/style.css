@@ -187,6 +187,102 @@ body {
   transform: scale(0.98);
 }
 
+.acoes-professor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0 auto var(--space-xl);
+  max-width: 1200px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border-light);
+}
+
+.acoes-professor__titulo h2 {
+  font-size: 1.1em;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+}
+
+.acoes-professor__titulo p {
+  color: var(--color-text-secondary);
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+.form-atividade {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 12px;
+}
+
+.form-atividade input {
+  width: 100%;
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+}
+
+.form-atividade input:focus {
+  outline: none;
+  border-color: var(--color-border-dark);
+  box-shadow: 0 0 0 3px rgba(122, 156, 255, 0.16);
+}
+
+.btn-salvar-atividade {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  background: #2f9e44;
+  color: #fff;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-salvar-atividade:hover {
+  background: #2b8a3e;
+}
+
+.atividade-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: default;
+}
+
+.atividade-card__descricao {
+  font-size: 0.98em;
+  line-height: 1.4;
+}
+
+.atividade-card__data {
+  color: var(--color-text-secondary);
+  font-size: 0.9em;
+}
+
+.btn-excluir-atividade {
+  align-self: flex-start;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  background: #e03131;
+  color: #fff;
+  font-size: 0.9em;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-excluir-atividade:hover {
+  background: #c92a2a;
+}
+
 /* ===== KANBAN ===== */
 main {
   display: flex;
@@ -341,6 +437,14 @@ main {
 
   .btn-trocar {
     width: 100%;
+  }
+
+  .acoes-professor {
+    padding: var(--space-md);
+  }
+
+  .form-atividade {
+    grid-template-columns: 1fr;
   }
 
   .coluna {
