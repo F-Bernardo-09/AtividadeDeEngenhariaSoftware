@@ -267,6 +267,16 @@ main {
   transform: scale(0.98);
 }
 
+.card[draggable="false"] {
+  cursor: default;
+  opacity: 0.95;
+}
+
+.coluna.drag-over {
+  background: #eff4ff;
+  border-color: #7a9cff;
+}
+
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
   width: 8px;
