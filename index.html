@@ -1,29 +1,98 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Quadro Kanban</title>
+    <link rel="stylesheet" href="src/style/style.css" />
   </head>
   <body>
-    <h1>Olá, bem vindo ao seu quadro Kanban</h1>
+    <!-- TELA INICIAL -->
+    <div id="telaInicial" class="tela-inicial">
+      <div class="modal-inicial">
+        <h1 class="titulo-inicial">Bem-vindo ao Kanban</h1>
+        <p class="subtitulo-inicial">Como você deseja usar este quadro?</p>
 
-    <main>
-      <div class="container">
-        <div class="coluna">
-          <h2>To Do</h2>
-          <div class="card">Tarefa 1</div>
-          <div class="card">Tarefa 2</div>
-        </div>
-        <div class="coluna">
-          <h2>In Progress</h2>
-          <div class="card">Tarefa 3</div>
-        </div>
-        <div class="coluna">
-          <h2>Done</h2>
-          <div class="card">Tarefa 4</div>
+        <div class="opcoes">
+          <button
+            class="btn-opcao btn-professor"
+            onclick="escolherPerfil('professor')"
+          >
+            <span class="icone">👨‍🏫</span>
+            <span class="texto">Sou Professor</span>
+          </button>
+          <button class="btn-opcao btn-aluno" onclick="escolherPerfil('aluno')">
+            <span class="icone">👨‍🎓</span>
+            <span class="texto">Sou Aluno</span>
+          </button>
         </div>
       </div>
-    </main>
+    </div>
+
+    <!-- QUADRO KANBAN -->
+    <div id="quadroKanban" class="quadro-kanban" style="display: none">
+      <div class="header-kanban">
+        <h1>Olá, bem vindo ao seu quadro Kanban</h1>
+        <button class="btn-trocar" onclick="trocarPerfil()">
+          Trocar Perfil
+        </button>
+      </div>
+
+      <main>
+        <div class="container">
+          <div class="coluna">
+            <h2>To Do</h2>
+            <div class="card">Tarefa 1</div>
+            <div class="card">Tarefa 2</div>
+          </div>
+          <div class="coluna">
+            <h2>In Progress</h2>
+            <div class="card">Tarefa 3</div>
+          </div>
+          <div class="coluna">
+            <h2>Done</h2>
+            <div class="card">Tarefa 4</div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Função para escolher perfil
+      function escolherPerfil(perfil) {
+        // Salvar no localStorage
+        localStorage.setItem("perfil", perfil);
+        // Mostrar o quadro Kanban
+        mostrarKanban();
+      }
+
+      // Função para trocar de perfil
+      function trocarPerfil() {
+        // Limpar localStorage
+        localStorage.removeItem("perfil");
+        // Voltar para a tela inicial
+        voltarTelaInicial();
+      }
+
+      // Função para mostrar o Kanban
+      function mostrarKanban() {
+        document.getElementById("telaInicial").style.display = "none";
+        document.getElementById("quadroKanban").style.display = "block";
+      }
+
+      // Função para voltar à tela inicial
+      function voltarTelaInicial() {
+        document.getElementById("telaInicial").style.display = "flex";
+        document.getElementById("quadroKanban").style.display = "none";
+      }
+
+      // Verificar se o usuário já escolheu um perfil
+      window.addEventListener("DOMContentLoaded", function () {
+        const perfilSalvo = localStorage.getItem("perfil");
+        if (perfilSalvo) {
+          mostrarKanban();
+        }
+      });
+    </script>
   </body>
 </html>
