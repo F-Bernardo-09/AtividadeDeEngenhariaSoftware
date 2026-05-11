@@ -152,6 +152,7 @@ body {
   align-items: center;
   margin-bottom: var(--space-xl);
   gap: var(--space-md);
+  padding: var(--space-sm) var(--space-xl) 0 var(--space-xl);
   flex-wrap: wrap;
 }
 
