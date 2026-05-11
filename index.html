@@ -1,9 +1,83 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Quadro Kanban</title>
+    <link rel="stylesheet" href="src/style/style.css" />
   </head>
-  <body></body>
+  <body>
+    <!-- TELA INICIAL -->
+    <div id="telaInicial" class="tela-inicial">
+      <div class="modal-inicial">
+        <h1 class="titulo-inicial">Bem-vindo ao Kanban</h1>
+        <p class="subtitulo-inicial">Como você deseja usar este quadro?</p>
+
+        <div class="opcoes">
+          <button
+            class="btn-opcao btn-professor"
+            onclick="escolherPerfil('professor')"
+          >
+            <span class="texto">Sou Professor</span>
+          </button>
+          <button class="btn-opcao btn-aluno" onclick="escolherPerfil('aluno')">
+            <span class="texto">Sou Aluno</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUADRO KANBAN -->
+    <div id="quadroKanban" class="quadro-kanban" style="display: none">
+      <div class="header-kanban">
+        <h1>Olá, bem vindo ao seu quadro Kanban</h1>
+        <button class="btn-trocar" onclick="trocarPerfil()">
+          Trocar Perfil
+        </button>
+      </div>
+
+      <section
+        id="acoesProfessor"
+        class="acoes-professor"
+        style="display: none"
+      >
+        <div class="acoes-professor__titulo">
+          <h2>Atividades do professor</h2>
+          <p>Crie e compartilhe atividades com os alunos.</p>
+        </div>
+
+        <form
+          id="formAtividade"
+          class="form-atividade"
+          onsubmit="criarAtividade(event)"
+        >
+          <input
+            type="text"
+            id="descricaoAtividade"
+            placeholder="Descrição da atividade"
+            required
+          />
+          <input type="date" id="dataAtividade" required />
+          <button type="submit" class="btn-salvar-atividade">
+            Adicionar atividade
+          </button>
+        </form>
+      </section>
+
+      <main>
+        <div class="container">
+          <div class="coluna" id="todo">
+            <h2>To Do</h2>
+          </div>
+          <div class="coluna" id="inProgress">
+            <h2>In Progress</h2>
+          </div>
+          <div class="coluna" id="done">
+            <h2>Done</h2>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="src/js/kanban.js"></script>
+  </body>
 </html>
