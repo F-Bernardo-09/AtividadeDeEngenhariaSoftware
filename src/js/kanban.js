@@ -1,16 +1,6 @@
-const initialBoardState = {
-  card1: "todo",
-  card2: "todo",
-  card3: "inProgress",
-  card4: "done",
-};
+const initialBoardState = {};
 
-const boardCardDefinitions = [
-  { id: "card1", texto: "Tarefa 1" },
-  { id: "card2", texto: "Tarefa 2" },
-  { id: "card3", texto: "Tarefa 3" },
-  { id: "card4", texto: "Tarefa 4" },
-];
+const boardCardDefinitions = [];
 
 function escolherPerfil(perfil) {
   localStorage.setItem("perfil", perfil);
@@ -100,14 +90,7 @@ function criarCardAtividade(atividade, perfil) {
   card.appendChild(titulo);
   card.appendChild(data);
 
-  if (perfil === "professor") {
-    const remover = document.createElement("button");
-    remover.type = "button";
-    remover.className = "btn-excluir-atividade";
-    remover.textContent = "Excluir";
-    remover.addEventListener("click", () => excluirAtividade(atividade.id));
-    card.appendChild(remover);
-  } else {
+  if (perfil === "aluno") {
     card.addEventListener("dragstart", aoIniciarArraste);
   }
 
@@ -175,12 +158,6 @@ function criarAtividade(event) {
   renderizarQuadro("professor");
 }
 
-function excluirAtividade(id) {
-  const atividades = obterAtividades().filter((atividade) => atividade.id !== id);
-  salvarAtividades(atividades);
-  renderizarQuadro("professor");
-}
-
 function aoIniciarArraste(event) {
   event.dataTransfer.setData("text/plain", event.currentTarget.id);
 }
@@ -228,7 +205,10 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 window.addEventListener("storage", function (event) {
-  if (event.key === "atividadesProfessor" || event.key === "quadroKanbanEstado") {
+  if (
+    event.key === "atividadesProfessor" ||
+    event.key === "quadroKanbanEstado"
+  ) {
     if (document.getElementById("quadroKanban").style.display === "block") {
       renderizarQuadro(localStorage.getItem("perfil") || "aluno");
     }

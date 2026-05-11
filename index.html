@@ -18,11 +18,9 @@
             class="btn-opcao btn-professor"
             onclick="escolherPerfil('professor')"
           >
-            <span class="icone">👨‍🏫</span>
             <span class="texto">Sou Professor</span>
           </button>
           <button class="btn-opcao btn-aluno" onclick="escolherPerfil('aluno')">
-            <span class="icone">👨‍🎓</span>
             <span class="texto">Sou Aluno</span>
           </button>
         </div>
@@ -38,13 +36,21 @@
         </button>
       </div>
 
-      <section id="acoesProfessor" class="acoes-professor" style="display: none">
+      <section
+        id="acoesProfessor"
+        class="acoes-professor"
+        style="display: none"
+      >
         <div class="acoes-professor__titulo">
           <h2>Atividades do professor</h2>
-          <p>Crie, acompanhe e remova atividades compartilhadas com o aluno.</p>
+          <p>Crie e compartilhe atividades com os alunos.</p>
         </div>
 
-        <form id="formAtividade" class="form-atividade" onsubmit="criarAtividade(event)">
+        <form
+          id="formAtividade"
+          class="form-atividade"
+          onsubmit="criarAtividade(event)"
+        >
           <input
             type="text"
             id="descricaoAtividade"
@@ -52,7 +58,9 @@
             required
           />
           <input type="date" id="dataAtividade" required />
-          <button type="submit" class="btn-salvar-atividade">Adicionar atividade</button>
+          <button type="submit" class="btn-salvar-atividade">
+            Adicionar atividade
+          </button>
         </form>
       </section>
 
